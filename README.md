@@ -1,2 +1,9 @@
-# JavaTest
-some project for java study
+# JavaStudy
+
+some project for test
+```
+# Java
+# Spring Boot
+# Mybatis
+# Mybatis-plus
+```
