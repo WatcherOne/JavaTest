@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.watcher.mapper.StudentMapper">
+    <select id="getStudentList" resultType="com.watcher.entity.Student">
+        select * from student
+    </select>
+
+    <resultMap id="resultStudentInfo" type="com.watcher.vo.StudentInfo">
+        <id property="id" column="id"></id>
+        <result property="userId" column="user_id"></result>
+        <result property="classId" column="class_id"></result>
+        <result property="stuNum" column="stu_num"></result>
+        <result property="stuCredit" column="stu_credit"></result>
+        <result property="remark" column="remark"></result>
+        <association property="userInfo" javaType="com.watcher.entity.User">
+            <id property="id" column="user_id"></id>
+            <result property="userName" column="user_name"></result>
+            <result property="age" column="age"></result>
+            <result property="sex" column="sex"></result>
+            <result property="sexName" column="sexName"></result>
+            <result property="idCard" column="id_card"></result>
+            <result property="password" column="password"></result>
+        </association>
+    </resultMap>
+    <select id="getStudentInfoList" resultMap="resultStudentInfo">
+        select
+            u.user_name,
+            u.age,
+            u.sex,
+            IF(u.sex = 0, "女", "男") as sexName,
+            u.id_card,
+            u.password,
+            s.*
+        from student s
+        JOIN user u on s.user_id = u.id and s.user_id
+    </select>
+
+    <resultMap id="resultStudentInfoStep" type="com.watcher.vo.StudentInfo">
+        <id property="id" column="id"></id>
+        <result property="userId" column="user_id"></result>
+        <result property="classId" column="class_id"></result>
+        <result property="stuNum" column="stu_num"></result>
+        <result property="stuCredit" column="stu_credit"></result>
+        <result property="remark" column="remark"></result>
+        <association property="userInfo" column="user_id" select="com.watcher.mapper.UserMapper.getUserById" javaType="com.watcher.entity.User">
+<!--            不用也可以， 自动去找另一个 mapper 里面的映射 -->
+<!--            <id property="id" column="id"></id>-->
+<!--            <result property="userName" column="user_name"></result>-->
+<!--            <result property="age" column="age"></result>-->
+<!--            <result property="sex" column="sex"></result>-->
+<!--            <result property="sexName" column="sexName"></result>-->
+<!--            <result property="idCard" column="id_card"></result>-->
+<!--            <result property="password" column="password"></result>-->
+        </association>
+        <association
+                property="classInfo"
+                column="class_id"
+                select="com.watcher.mapper.ClassMapper.getClassById"
+                javaType="com.watcher.entity.StudentClass">
+        </association>
+    </resultMap>
+    <select id="getStudentInfoStepList" resultMap="resultStudentInfoStep">
+        select * from student s
+    </select>
+
+    <!-- 根据班级获得所有学生  -->
+    <select id="getStudentByClass" resultType="com.watcher.entity.Student">
+        select * from student where class_id = #{classId}
+    </select>
+
+    <!--  根据班级获得所有学生合计  -->
+    <select id="getStudentSumByClass" resultType="HashMap">
+        select
+            s.class_id as classId,
+            count(*) as stuSum,
+            SUM(IFNULL(s.stu_credit, 0)) as creditSum
+        from
+            student s
+        where s.class_id = #{id}
+        group by s.class_id
+    </select>
+</mapper>

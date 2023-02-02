@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.watcher.mapper.ClassifyMapper">
+
+    <resultMap id="resultClassifyList" type="com.watcher.vo.ClassifyVo">
+        <id property="id" column="id"></id>
+        <collection
+                property="iconList"
+                ofType="com.watcher.entity.IconSet"
+                select="com.watcher.mapper.IconSetMapper.getIconListByClassify"
+                column="id">
+        </collection>
+    </resultMap>
+    <select id="getClassifyList" resultMap="resultClassifyList">
+        select * from classify
+    </select>
+
+    <!--  resultMap="resultClassifyList" -->
+    <select id="getClassifyById" resultType="com.watcher.vo.ClassifyVo">
+        select * from classify where id = #{classifyId}
+    </select>
+
+    <resultMap id="resultClassifyMap" type="com.watcher.vo.ClassifyVo">
+        <id property="id" column="id"></id>
+        <result property="classifyName" column="classify_name"></result>
+        <collection property="iconList" ofType="com.watcher.entity.IconSet">
+            <id property="id" column="icon_id"></id>
+            <result property="classifyId" column="classifyId"></result>
+            <result property="iconName" column="iconName"></result>
+            <result property="iconCode" column="iconCode"></result>
+        </collection>
+    </resultMap>
+    <select id="getClassifyMap" resultMap="resultClassifyMap">
+        select
+            c.*,
+            b.id as icon_id,
+            b.classify_id as classifyId,
+            b.icon_name as iconName,
+            b.icon_code as iconCode
+        from
+            classify c
+        left join icon_set b on c.id = b.classify_id
+        order by
+            b.id DESC
+    </select>
+</mapper>

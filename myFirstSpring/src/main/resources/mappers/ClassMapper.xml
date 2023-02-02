@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.watcher.mapper.ClassMapper">
+    <select id="getClassList" resultType="com.watcher.entity.StudentClass">
+        select * from student_class
+    </select>
+
+    <sql id="getClassById">
+        select * from student_class
+        where id = #{classId}
+    </sql>
+    <select id="getClassById" resultType="com.watcher.entity.StudentClass">
+        <include refid="getClassById"></include>
+    </select>
+
+    <resultMap id="resultClassStudent" type="com.watcher.vo.ClassStudent">
+        <collection
+                property="studentList"
+                column="id"
+                select="com.watcher.mapper.StudentMapper.getStudentByClass"
+                ofType="com.watcher.entity.Student"></collection>
+    </resultMap>
+    <select id="getClassStudent" resultMap="resultClassStudent">
+        <include refid="getClassById"></include>
+    </select>
+
+    <resultMap id="resultClassStudentSum" type="com.watcher.vo.ClassStudentSum">
+        <id property="id" column="id"></id>
+        <association
+                property="creditSum"
+                select="com.watcher.mapper.StudentMapper.getStudentSumByClass"
+                column="id"
+                javaType="HashMap">
+        </association>
+    </resultMap>
+    <select id="getClassStudentSum" resultMap="resultClassStudentSum">
+        <include refid="getClassById"></include>
+    </select>
+</mapper>

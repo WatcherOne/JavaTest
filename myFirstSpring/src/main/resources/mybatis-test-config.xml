@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--   用于test环境的 Mybatis 配置   -->
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+
+    <typeAliases>
+        <typeAlias alias="Integer" type="java.lang.Integer"></typeAlias>
+        <typeAlias alias="Long" type="java.lang.Long"></typeAlias>
+        <typeAlias alias="HashMap" type="java.util.HashMap"></typeAlias>
+        <typeAlias alias="ArrayList" type="java.util.ArrayList"></typeAlias>
+        <typeAlias alias="User" type="com.watcher.entity.User"></typeAlias>
+    </typeAliases>
+
+    <environments default="mysql_developer">
+        <environment id="mysql_developer">
+            <transactionManager type="JDBC" />
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver" />
+                <property name="url" value="jdbc:mysql://localhost:3306/java_test?serverTimezone=Hongkong" />
+                <property name="username" value="root" />
+                <!-- Mac -->
+                <!-- 12345678 -->
+                <property name="password" value="123456" />
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <!-- mappers要从这里映射位置 -->
+        <mapper resource="mappers/UserMapper.xml"/>
+        <mapper resource="mappers/StudentMapper.xml"/>
+        <mapper resource="mappers/ClassMapper.xml"/>
+        <mapper resource="mappers/ClassifyMapper.xml"/>
+        <mapper resource="mappers/IconSetMapper.xml"/>
+    </mappers>
+</configuration>
