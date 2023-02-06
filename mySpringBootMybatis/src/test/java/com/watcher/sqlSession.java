@@ -6,7 +6,6 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Before;
 import java.io.IOException;
 import java.io.InputStream;
-
 public class sqlSession {
 
     public SqlSessionFactory sqlSessionFactory;

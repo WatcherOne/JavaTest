@@ -17,6 +17,12 @@
         <typeAlias alias="User" type="com.watcher.entity.User"></typeAlias>
     </typeAliases>
 
+    <!--  标签是有顺序的！！！   -->
+    <!--    <plugins>-->
+    <!--        &lt;!&ndash;  设置分页插件  &ndash;&gt;-->
+    <!--        <plugin interceptor="com.github.pagehelper.pageInterceptor"></plugin>-->
+    <!--    </plugins>-->
+
     <environments default="mysql_developer">
         <environment id="mysql_developer">
             <transactionManager type="JDBC" />
