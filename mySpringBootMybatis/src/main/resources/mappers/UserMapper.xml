@@ -20,7 +20,6 @@
     -->
     <cache
         eviction="LRU"
-        flushInterval="0"
         size="1024"
         readOnly="false"></cache>
     <!--

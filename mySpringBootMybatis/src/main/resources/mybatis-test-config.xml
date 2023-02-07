@@ -30,9 +30,7 @@
                 <property name="driver" value="com.mysql.jdbc.Driver" />
                 <property name="url" value="jdbc:mysql://localhost:3306/java_test?serverTimezone=Hongkong" />
                 <property name="username" value="root" />
-                <!-- Mac -->
-                <!-- 12345678 -->
-                <property name="password" value="123456" />
+                <property name="password" value="12345678" />
             </dataSource>
         </environment>
     </environments>

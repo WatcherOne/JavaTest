@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 /**
  * 下面注解是 lombok 提供的简化功能
  * @Data - 生成 getter,setter,toString等函数
@@ -16,7 +18,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class User implements seriableize {
+public class User implements Serializable {
     private Integer id;
 
     private String userName;

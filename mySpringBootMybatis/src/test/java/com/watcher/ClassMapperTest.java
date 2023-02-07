@@ -33,7 +33,7 @@ public class ClassMapperTest extends sqlSession {
         SqlSession sqlSession = null;
         sqlSession = sqlSessionFactory.openSession();
         ClassMapper classMapper = sqlSession.getMapper(ClassMapper.class);
-        ClassStudent classStudent = classMapper.getClassStudent(10);
+        ClassStudent classStudent = classMapper.getClassStudent(7);
         System.out.println(classStudent);
         sqlSession.close();
     }

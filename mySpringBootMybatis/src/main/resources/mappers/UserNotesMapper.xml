@@ -76,6 +76,7 @@
         用于定义可重用的 SQL 代码片段
         用 <include> 来使用 和 <property> 来定义不同的参数
         可以 嵌套使用（在sql元素中也可以 include 一个其它sql标签）
+        可以 引用其它 xml文件中的 sql
         ${}来获取传入sql中的参数
         * select 的字段必须与数据库一致
      -->
